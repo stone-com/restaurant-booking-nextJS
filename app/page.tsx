@@ -1,7 +1,3 @@
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
-
 export default function Home() {
   return (
     <main className='w-screen min-h-screen bg-gray-100'>
@@ -10,14 +6,14 @@ export default function Home() {
         <nav className='flex justify-between p-2 bg-white'>
           <a href='' className='text-2xl font-bold text-gray-700'>
             {' '}
-            OpenTable{' '}
+            Restaurant Booking{' '}
           </a>
           <div>
             <div className='flex'>
               <button className='p-1 px-4 mr-3 text-white bg-blue-400 border rounded'>
                 Sign in
               </button>
-              <button className='p-1 px-4 border rounded'>Sign up</button>
+              <button className='p-1 px-4 text-black border rounded'>Sign up</button>
             </div>
           </div>
         </nav>
@@ -32,7 +28,7 @@ export default function Home() {
               {/* SEARCH BAR */}
               <div className='flex justify-center py-3 m-auto text-lg text-left'>
                 <input
-                  className='rounded  mr-3 p-2 w-[450px]'
+                  className='rounded mr-3 p-2 w-[450px]'
                   type='text'
                   placeholder='State, city or town'
                 />
