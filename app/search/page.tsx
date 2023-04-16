@@ -1,4 +1,4 @@
-export default function page() {
+export default function Search() {
   return (
     <main className='w-screen min-h-screen bg-gray-100'>
       <main className='m-auto bg-white max-w-screen-2xl'>
