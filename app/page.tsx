@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import NavBar from './components/NavBar';
 import Header from './components/Header';
 import RestaurantCard from './components/RestaurantCard';
@@ -10,13 +9,9 @@ export default function Home() {
         <NavBar />
         <main>
           <Header />
-          {/* CARDS */}
           <div className='flex flex-wrap py-3 mt-10 px-36'>
-            {/* CARD */}
             <RestaurantCard />
-            {/* CARD */}
           </div>
-          {/* CARDS */}
         </main>
       </main>
     </main>
