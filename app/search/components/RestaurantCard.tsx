@@ -3,7 +3,6 @@ import Link from "next/link";
 export default function RestaurantCard() {
   return (
     <div className='flex pb-5 border-b'>
-        <Link href='/restaurant/milestones-grill'>
       <img
         src='https://images.otstatic.com/prod1/49153814/2/medium.jpg'
         alt=''
@@ -23,10 +22,11 @@ export default function RestaurantCard() {
           </div>
         </div>
         <div className='text-red-600'>
-          <a href=''>View more information</a>
+          <Link href='/restaurant/milestones-grill'>
+            View more information
+          </Link>
         </div>
       </div>
-      </Link>
     </div>
   );
 }
