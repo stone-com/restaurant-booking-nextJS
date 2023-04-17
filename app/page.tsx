@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import NavBar from './components/NavBar';
 
 export default function Home() {
   const router = useRouter();
@@ -11,24 +12,7 @@ export default function Home() {
   return (
     <main className='w-screen min-h-screen bg-gray-100'>
       <main className='m-auto bg-white max-w-screen-2xl'>
-        {/* NAVBAR */}
-        <nav className='flex justify-between p-2 bg-white'>
-          <Link href='/' className='text-2xl font-bold text-gray-700'>
-            {' '}
-            OpenTable{' '}
-          </Link>
-          <div>
-            <div className='flex'>
-              <button className='p-1 px-4 mr-3 text-white bg-blue-400 border rounded'>
-                Sign in
-              </button>
-              <button className='p-1 px-4 text-black border rounded'>
-                Sign up
-              </button>
-            </div>
-          </div>
-        </nav>
-        {/* NAVBAR */}
+        <NavBar />
         <main>
           {/* HEADER */}
           <div className='h-64 bg-gradient-to-r from-[#0f1f47] to-[#5f6984] p-2'>

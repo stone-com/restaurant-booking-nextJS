@@ -1,25 +1,12 @@
+import NavBar from "@/app/components/NavBar";
 import Link from "next/link";
 
 export default function Menu() {
   return (
     <main className='w-screen min-h-screen bg-gray-100'>
       <main className='m-auto bg-white max-w-screen-2xl'>
-        {/* NAVBAR */}
-        <nav className='flex justify-between p-2 bg-white'>
-        <Link href='/' className='text-2xl font-bold text-gray-700'>
-            {' '}
-            OpenTable{' '}
-          </Link>
-          <div>
-            <div className='flex'>
-              <button className='p-1 px-4 mr-3 text-white bg-blue-400 border rounded'>
-                Sign in
-              </button>
-              <button className='p-1 px-4 border rounded'>Sign up</button>
-            </div>
-          </div>
-        </nav>
-        {/* NAVBAR */} {/* HEADER */}
+       <NavBar/>
+       {/* HEADER */}
         <div className='overflow-hidden h-96'>
           <div className='bg-center bg-gradient-to-r from-[#0f1f47] to-[#5f6984] h-full flex justify-center items-center'>
             <h1 className='text-center text-white text-7xl captitalize text-shadow'>
