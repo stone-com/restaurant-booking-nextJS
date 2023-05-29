@@ -9,9 +9,13 @@ export default function Menu({ menu }: { menu: Item[] }) {
           <h1 className='text-4xl font-bold'>Menu</h1>
         </div>
         <div className='flex flex-wrap justify-between'>
-          {menu.map((item) => (
+          {menu.length ? (menu.map((item) => (
             <MenuCard key={item.id} item={item}/>
-          ))}
+          ))) : (
+            <div className='flex flex-wrap justify-between'>
+              <p>This restaurant does not have a menu.</p>
+              </div>
+          )}
         </div>
       </div>
     </main>

@@ -15,8 +15,8 @@ export default function SearchBar() {
       />
       <button
         onClick={() => {
-          if (location === 'banana') return;
-          router.push('/search');
+          if (location === '') return;
+          router.push(`/search?city=${location}`);
         }}
         className='py-2 text-white bg-red-600 rounded px-9'
       >
