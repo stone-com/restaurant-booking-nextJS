@@ -10,18 +10,29 @@ export const metadata = {
 
 const prisma = new PrismaClient();
 
-const fetchRestaurantsByCity = (city: string) => {
+const fetchRestaurantsByCity = (city: string | undefined) => {
+  const select = {
+    id: true,
+    name: true,
+    main_image: true,
+    price: true,
+    cuisine: true,
+    location: true,
+    slug: true,
+  };
+
   // return all restaurants if no search params
-  if (!city) return prisma.restaurant.findMany();
+  if (!city) return prisma.restaurant.findMany({ select });
 
   return prisma.restaurant.findMany({
     where: {
       location: {
         name: {
-          equals: city,
+          equals: city.toLowerCase(),
         },
       },
     },
+    select,
   });
 };
 
@@ -30,10 +41,8 @@ export default async function Search({
 }: {
   searchParams: { city: string };
 }) {
-  const restaurants = await fetchRestaurantsByCity(
-    searchParams.city.toLowerCase()
-  );
-
+  const restaurants = await fetchRestaurantsByCity(searchParams.city);
+  console.log(restaurants);
   return (
     <>
       <Header />
