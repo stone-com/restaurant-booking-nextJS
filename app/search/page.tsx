@@ -38,25 +38,36 @@ const fetchRestaurantsByCity = (city: string | undefined) => {
   });
 };
 
+const fetchLocations = async () => {
+  return prisma.location.findMany();
+};
+
+const fetchCuisines = async () => {
+  return prisma.cuisine.findMany();
+};
+
 export default async function Search({
   searchParams,
 }: {
   searchParams: { city: string };
 }) {
-  const restaurants = await fetchRestaurantsByCity(searchParams.city);
+  // use promise.all to await all 3 different api calls
+  const [restaurants, locations, cuisines] = await Promise.all([
+    fetchRestaurantsByCity(searchParams.city),
+    fetchLocations(),
+    fetchCuisines(),
+  ]);
 
   return (
     <>
       <Header />
       <div className='flex items-start justify-between w-2/3 py-4 m-auto'>
-        <SearchSidebar />
+        <SearchSidebar locations={locations} cuisines={cuisines}/>
         <div className='w-5/6'>
           {restaurants.length ? (
             restaurants.map((restaurant) => (
               <>
-                <RestaurantCard
-                  restaurant={restaurant}
-                />
+                <RestaurantCard restaurant={restaurant} key={restaurant.id}/>
               </>
             ))
           ) : (

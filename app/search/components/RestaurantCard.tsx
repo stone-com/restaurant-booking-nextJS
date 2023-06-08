@@ -19,7 +19,7 @@ export default function RestaurantCard({
 }) {
   return (
     <div className='flex pb-5 ml-4 border-b'>
-      <img src={restaurant.main_image} alt='' className='rounded w-44' />
+      <img src={restaurant.main_image} alt='' className='rounded w-44 h-36' />
       <div className='pl-5'>
         <h2 className='text-3xl'>{restaurant.name}</h2>
         <div className='flex items-start'>
@@ -29,12 +29,8 @@ export default function RestaurantCard({
         <div className='mb-9'>
           <div className='flex font-light text-reg'>
             <Price price={restaurant.price} />
-            <p className='mr-4'>{restaurant.cuisine.name}</p>
-            <p className='mr-4'>
-              {/* cap;italize first letter of location name */}
-              {restaurant.location.name.charAt(0).toUpperCase() +
-                restaurant.location.name.slice(1)}
-            </p>
+            <p className='mr-4 capitalize'>{restaurant.cuisine.name}</p>
+            <p className='mr-4 capitalize'>{restaurant.location.name}</p>
           </div>
         </div>
         <div className='text-red-600'>
