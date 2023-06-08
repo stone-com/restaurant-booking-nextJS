@@ -11,6 +11,8 @@ export const metadata = {
 const prisma = new PrismaClient();
 
 const fetchRestaurantsByCity = (city: string | undefined) => {
+  // create variable for select, to keep code DRY.
+  // pass into both findMany calls below
   const select = {
     id: true,
     name: true,
@@ -42,14 +44,24 @@ export default async function Search({
   searchParams: { city: string };
 }) {
   const restaurants = await fetchRestaurantsByCity(searchParams.city);
-  console.log(restaurants);
+
   return (
     <>
       <Header />
       <div className='flex items-start justify-between w-2/3 py-4 m-auto'>
         <SearchSidebar />
         <div className='w-5/6'>
-          <RestaurantCard />
+          {restaurants.length ? (
+            restaurants.map((restaurant) => (
+              <>
+                <RestaurantCard
+                  restaurant={restaurant}
+                />
+              </>
+            ))
+          ) : (
+            <p>Sorry, we found no restaurants in this area</p>
+          )}
         </div>
       </div>
     </>
