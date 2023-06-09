@@ -10,7 +10,44 @@ export const metadata = {
 
 const prisma = new PrismaClient();
 
-const fetchRestaurantsByCity = (city: string | undefined) => {
+interface SearchParams {
+  city?: string;
+  cuisine?: string;
+  price?: PRICE;
+}
+
+const fetchRestaurantsBySearchParams = (searchParams: SearchParams) => {
+  // Create where object, to pass search params into
+  const where: any = {};
+
+  // If we have city search param, pass into where object
+  if (searchParams.city) {
+    const location = {
+      name: {
+        equals: searchParams.city.toLowerCase(),
+      },
+    };
+    where.location = location;
+  }
+
+  // If we have cuisine search param, pass into where object
+  if (searchParams.cuisine) {
+    const cuisine = {
+      name: {
+        equals: searchParams.cuisine.toLowerCase(),
+      },
+    };
+    where.cuisine = cuisine;
+  }
+
+  // If we have price search param, pass into where object
+  if (searchParams.price) {
+    const price = {
+      equals: searchParams.price,
+    };
+    where.price = price;
+  }
+
   // create variable for select, to keep code DRY.
   // pass into both findMany calls below
   const select = {
@@ -23,17 +60,8 @@ const fetchRestaurantsByCity = (city: string | undefined) => {
     slug: true,
   };
 
-  // return all restaurants if no search params
-  if (!city) return prisma.restaurant.findMany({ select });
-
   return prisma.restaurant.findMany({
-    where: {
-      location: {
-        name: {
-          equals: city.toLowerCase(),
-        },
-      },
-    },
+    where,
     select,
   });
 };
@@ -49,9 +77,9 @@ const fetchCuisines = async () => {
 export default async function Search({
   searchParams,
 }: {
-  searchParams: { city?: string, cuisine?: string, price?: PRICE };
+  searchParams: SearchParams;
 }) {
-  const restaurants = await fetchRestaurantsByCity(searchParams.city);
+  const restaurants = await fetchRestaurantsBySearchParams(searchParams);
   const locations = await fetchLocations();
   const cuisines = await fetchCuisines();
 
@@ -59,7 +87,11 @@ export default async function Search({
     <>
       <Header />
       <div className='flex items-start justify-between w-2/3 py-4 m-auto'>
-        <SearchSidebar locations={locations} cuisines={cuisines} searchParams={searchParams}/>
+        <SearchSidebar
+          locations={locations}
+          cuisines={cuisines}
+          searchParams={searchParams}
+        />
         <div className='w-5/6'>
           {restaurants.length ? (
             restaurants.map((restaurant) => (
