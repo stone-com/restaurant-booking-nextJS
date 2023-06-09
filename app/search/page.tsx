@@ -1,7 +1,7 @@
 import Header from './components/Header';
 import RestaurantCard from './components/RestaurantCard';
 import SearchSidebar from './components/SearchSidebar';
-import { PrismaClient } from '@prisma/client';
+import { PRICE, PrismaClient } from '@prisma/client';
 
 export const metadata = {
   title: 'Search',
@@ -49,25 +49,22 @@ const fetchCuisines = async () => {
 export default async function Search({
   searchParams,
 }: {
-  searchParams: { city: string };
+  searchParams: { city?: string, cuisine?: string, price?: PRICE };
 }) {
-  // use promise.all to await all 3 different api calls
-  const [restaurants, locations, cuisines] = await Promise.all([
-    fetchRestaurantsByCity(searchParams.city),
-    fetchLocations(),
-    fetchCuisines(),
-  ]);
+  const restaurants = await fetchRestaurantsByCity(searchParams.city);
+  const locations = await fetchLocations();
+  const cuisines = await fetchCuisines();
 
   return (
     <>
       <Header />
       <div className='flex items-start justify-between w-2/3 py-4 m-auto'>
-        <SearchSidebar locations={locations} cuisines={cuisines}/>
+        <SearchSidebar locations={locations} cuisines={cuisines} searchParams={searchParams}/>
         <div className='w-5/6'>
           {restaurants.length ? (
             restaurants.map((restaurant) => (
               <>
-                <RestaurantCard restaurant={restaurant} key={restaurant.id}/>
+                <RestaurantCard restaurant={restaurant} key={restaurant.id} />
               </>
             ))
           ) : (
