@@ -1,3 +1,4 @@
+import Stars from '@/app/components/Stars';
 import { Review } from '@prisma/client';
 
 export default function ReviewCard({ review }: { review: Review }) {
@@ -16,7 +17,10 @@ export default function ReviewCard({ review }: { review: Review }) {
         </div>
         <div className='w-5/6 ml-10'>
           <div className='flex items-center'>
-            <div className='flex mr-5'>*****</div>
+            <div className='flex mr-5'>
+              {/* Pass in the single review as an array into the stars component, because it expects an array in its props. It will still calculate number of stars based off of single review rather than getting average */}
+              <Stars reviews={[review]}/>
+            </div>
           </div>
           <div className='mt-5'>
             <p className='text-lg font-light'>{review.text}</p>

@@ -1,3 +1,4 @@
+import Stars from '@/app/components/Stars';
 import { calculateReviewRatingAverage } from '@/utils/calculateReviewRatingAverage';
 import { Review } from '@prisma/client';
 
@@ -5,7 +6,7 @@ export default function Rating({ reviews }: { reviews: Review[] }) {
   return (
     <div className='flex items-end'>
       <div className='flex items-center mt-2 ratings'>
-        <p>*****</p>
+        <Stars reviews={reviews}/>
         <p className='ml-3 text-reg'>
           {calculateReviewRatingAverage(reviews).toFixed(1)}
         </p>

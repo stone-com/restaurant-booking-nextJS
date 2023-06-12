@@ -11,6 +11,7 @@ export default function Stars({ reviews }: { reviews: Review[] }) {
   const renderStars = () => {
     const stars = [];
 
+    // generate an array of stars based off of the rating. Iterates from 0-4 to represent  the 5 possible stars. Calculates the difference between the rating and the current index, and pushes a star, half star, or empty star to the array depending on the difference.
     for (let i = 0; i < 5; i++) {
       const difference = parseFloat((rating - i).toFixed(1));
       if (difference >= 1) stars.push(fullStar);
@@ -25,5 +26,5 @@ export default function Stars({ reviews }: { reviews: Review[] }) {
       return <Image src={star} alt='' className='w-4 h-4 mr-1' />;
     });
   };
-  return <div className='flex items-center'>{renderStars()}</div>
+  return <div className='flex items-center'>{renderStars()}</div>;
 }
